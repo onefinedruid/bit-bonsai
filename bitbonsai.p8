@@ -3,8 +3,12 @@ version 29
 __lua__
 --init
 function init()
+sec=stat(95)
+nsec=0
+hour=0
 day=0
-year=5
+year=0
+date=""
 rootx=60
 rooty=80
 
@@ -19,19 +23,22 @@ init()
 -->8
 --draw
 function _draw()
+cls(12)
 map(0,0,28,32,64,64,1)
-print("year " ..tostr(year), 28, 32, 0)
-print(day,93,32,0)
-spr(7,rootx,rooty)
+print("y" ..tostr(year), 28, 32, 12)
+print("d" ..tostr(day), 40, 32, 14)
+print(hour,93,32,0)
 
 
+print(sec, 0, 0, 0)
+print(nsec, 0, 8, 0)
 
-
-
-
-
-
-
+if day>=5 then
+  spr(7,rootx,rooty)
+  end
+if day>=25 then
+  spr(42,rootx,rooty-8)
+  end
 
 
 end
@@ -39,26 +46,39 @@ _draw()
 -->8
 --update
 function _update()
-cls(7)
-day=stat(95)
 
-
-
-
-
-
-
-
-
-
-
-
-
+-- clock		
+		nsec=stat(95)
+		if nsec==0 then sec=0 end
+		if hour==25 then hour=0 end
+		if sec<nsec then
+		  sec=sec+1
+		  hour=hour+1
+		  if hour==24 then 
+		    day=day+1
+		  end
+		end
+		if day>365 then
+		  year=year+1
+		  day=0
+		end
+		
+-- seasons		
+	--[[	if day>=0 and day<91 then
+		  cls(14) end
+		if day>91 and day<183 then
+		  cls(12) end
+		if day>183 and day<274 then
+		  cls(9) end
+		if day>274 then
+		  cls(7) end]]--
+		
 
 end
 
 -->8
 --0ther functions
+
 __gfx__
 00000000ffffffff44444444fffffffffffffffffffffffffff44fff34344ffffffffffffff44ffffffffffffffffffff333333fffffffff0000000000000000
 00000000ffffffff44444444fffffffffffffffffffffffffff44ffff3444343fffff33ffff44fffffffffffffffffff33333333ffffffff0000000000000000
