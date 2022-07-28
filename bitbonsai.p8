@@ -13,6 +13,7 @@ rootx=60
 rooty=80
 selx=rootx
 sely=rooty
+rootspr=7
 
 
 
@@ -23,32 +24,27 @@ init()
 function _draw()
 cls(12)
 map(0,0,28,32,64,64,1)
-print("y" ..tostr(year), 28, 32, 12)
-print("d" ..tostr(day), 40, 32, 14)
-print(hour,93,32,0)
+print("time "..tostr(hour),28,32,5)
+print("day " ..tostr(day),28,38,14)
+print("year " ..tostr(year),28,44,12)
 palt(6,true)
 
 --debug
-print(sec, 0, 0, 0)
-print(nsec, 0, 8, 0)
-
-print("x:"..tostr(selx), 0,16,0)
-print("y:"..tostr(sely), 16,16,0)
-
---cursor movement
-if btn(0) then selx=selx-1 end
-if btn(1) then selx=selx+1 end
-if btn(2) then sely=sely-1 end
-if btn(3) then sely=sely+1 end
+--print(sec, 0, 0, 0)
+--print(nsec, 0, 8, 0)
+--print("x:"..tostr(selx), 0,0,0)
+--print("y:"..tostr(sely), 0,6,0)
 
 --basic growth
 if day>=5 then
-  spr(7,rootx,rooty)
+  spr(rootspr,rootx,rooty)
   --trim
   if selx==rootx and sely==rooty then
     print("trim?",56,32,0)
-    if btn(5) then
-      trimroot()
+    if btnp(5) then
+      if rootspr==7 then rootspr=23
+      elseif rootspr==23 then rootspr=6
+      end
     end
   end
 end
@@ -104,15 +100,19 @@ function _update()
 		  cls(9) end
 		if day>274 then
 		  cls(7) end]]--
+		  
+--cursor movement
+if btn(0) then selx=selx-1 end
+if btn(1) then selx=selx+1 end
+if btn(2) then sely=sely-1 end
+if btn(3) then sely=sely+1 end
 		
 
 end
 
 -->8
 --0ther functions
-function trimroot()
-spr(6,rootx,rooty)
-end
+
 __gfx__
 00000000ffffffff44444444fffffffffffffffffffffffffff44fff34344ffffffffffffff44ffffffffffffffffffff333333fffffffff0000000000000000
 00000000ffffffff44444444fffffffffffffffffffffffffff44ffff3444343fffff33ffff44fffffffffffffffffff33333333ffffffff0000000000000000
