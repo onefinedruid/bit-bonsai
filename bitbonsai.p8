@@ -27,26 +27,48 @@ init()
 -->8
 --draw
 function _draw()
-map(mapx,0,3,8,128,128,1)
-print("hour "..tostr(hour),27,32,5)
-print("day " ..tostr(day),27,38,14)
-print("year " ..tostr(year),27,44,12)
-palt(6,true)
 
+		function drmap()
+				map(mapx,0,3,8,128,128,1)
+				print("hour "..tostr(hour),27,32,5)
+				print("day " ..tostr(day),27,38,14)
+				print("year " ..tostr(year),27,44,12)
+		end
+		
+		drmap()
+		
+		palt(6,true)
+		
 --version
 print("0.1.4",0,0,10)
 
 
--- seasons				
-	 if day>0 and day<92 then --92
+-- seasons
+		if day==92 then 
+		  cls(12) 
+		  drmap()
+  		end
+  if day==182 then 
+		  cls(9) 
+		  drmap()
+  		end
+  if day==274 then 
+		  cls(7) 
+		  drmap()
+  		end
+  if day==0 then
+    cls(14)
+    drmap()
+    end
+			
+	 if day>0 and day<91 then --91
 		  mapx=17 end
-		if day>92 and day<182 then --182
+		if day>91 and day<181 then --181
 		  mapx=34 end
-		if day>182 and day<273 then --273
+		if day>181 and day<273 then --273
 		  mapx=51 end
 		if day>273 then
-		  mapx=68 end
-		  
+		  mapx=68 end 
 		
 --tree growth
 if day>=5 then
@@ -103,9 +125,6 @@ if day>=45 then
 		end
 end
 
-if day>=92 then cls(12) end
-if day>=182 then cls(9) end
-if day>=273 then cls(7) end
   
 --cursor
 spr(17,selx,sely)
