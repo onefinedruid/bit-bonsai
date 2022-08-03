@@ -7,8 +7,8 @@ poke(0x5f2c,3)
 version="0.2.0"
 sec=stat(95)
 nsec=0
-hour=6
-day=5
+hour=14
+day=0
 year=0
 date=""
 mapx=0
