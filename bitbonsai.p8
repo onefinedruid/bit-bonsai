@@ -2,55 +2,54 @@ pico-8 cartridge // http://www.pico-8.com
 version 29
 __lua__
 --init
-function init()
 poke(0x5f2c,3)
-version="0.2.0"
-sec=stat(95)
-nsec=0
+version="0.2.2"
 hour=0
 day=0
 year=0
-date=""
-mapx=0
+sec=stat(95)
+nsec=0
+--music(10)
+
+function init()
+treeage=0 --in days
 rootx=24
 rooty=48
-selx=rootx
-sely=rooty
-flag1,flag2,flag3,flag4,flag5=
-true,true,true,true,true
+flag0,flag1,flag2,flag3,flag4,flag5=
+false,true,true,true,true,true
 root_spr=7
 trunk_spr=12
 topcenter=40
 llbranch=11
 lrbranch=13
 
---music(10)
-
---eof
 end
 init()
+
+selx=rootx
+sely=rooty
 -->8
 --draw
 function _draw()
 
-
 --map
 function drawmap()
-		map(mapx,0,0,0,64,64,1)
+		map(0,0,0,0,64,64,1)
 		print("hour "..tostr(hour),0,0,7)
 		print("day " ..tostr(day),0,6,3)
 		print("year " ..tostr(year),0,12,2)
+  print("age:"..tostr(treeage),32,0,10)
 end
 
 function trimtext()
-		print("trim?",31,0,7) 
+		print("trim?",32,6,7) 
 end
 
 palt(6,true)
 drawmap()
 
 --version
---print(version,30,0,10)
+--print(version,0,18,0)
 
 --debug
 --print("x:"..tostr(selx),0,18,7)
@@ -77,10 +76,12 @@ drawmap()
     end  
 		
 --tree growth
+if treeage>=0 then
+  flag0=false
+end
 
-if year==0 then
 --day 2
-if day>=2 then
+if treeage>=2 then
   spr(root_spr,rootx,rooty)
   --trim
   if flag1==true then
@@ -91,7 +92,9 @@ if day>=2 then
 		        root_spr=23
 		      elseif root_spr==23 then 
 		        root_spr=6
-		        flag1=false
+		      else 
+		        root_spr=4
+		        flag0=true
 		      end
 		    end
 		  end
@@ -99,12 +102,12 @@ if day>=2 then
 end
 
 --day 5
-if day>=5 then
+if treeage>=5 then
   spr(42,rootx,rooty-8)
 end
 
 --day 10
-if day>=10 then
+if treeage>=10 then
   spr(9,rootx,rooty-8)
   spr(8,rootx-8,rooty-8)
   spr(10,rootx+8,rooty-8)
@@ -112,7 +115,7 @@ if day>=10 then
 end
   
 --day 15 
-if day>=15 then
+if treeage>=15 then
   spr(topcenter,rootx,rooty-16)
   spr(llbranch,rootx-8,rooty-8)
   spr(trunk_spr,rootx,rooty-8)
@@ -166,17 +169,14 @@ if day>=15 then
 end
 
 --day 20
-if day>=20 then
+if treeage>=20 then
   if flag3==false then
 		  topcenter=9
 				spr(8,rootx-8,rooty-16)
 				spr(10,rootx+8,rooty-16)
-				spr(40, rootx,rooty-24)
+				spr(40,rootx,rooty-24)
 		end 
 end
-
-
-end -- year wrapper
 
 --cursor
 spr(17,selx,sely)
@@ -220,6 +220,14 @@ function _update()
 		  year=year+1
 		  day=0
 		end
+		
+		if hour==25 and flag0==false then 
+		  treeage=treeage+1
+		  end
+		  
+		if flag0==true then
+		  init()
+		end 
 		
 		  
 --cursor movement
