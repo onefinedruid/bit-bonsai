@@ -3,7 +3,7 @@ version 29
 __lua__
 --init
 poke(0x5f2c,3)
-version="0.2.2"
+version="0.2.3"
 hour=0
 day=0
 year=0
@@ -15,13 +15,23 @@ function init()
 treeage=0 --in days
 rootx=24
 rooty=48
-flag0,flag1,flag2,flag3,flag4,flag5=
-false,true,true,true,true,true
+flag0,flag1,flag2,flag3,flag4=
+false,true,true,true,true
+flag5,flag6,flag7,flag8,flag9=
+true,true,true,true,true
+flag10,flag11,flag12=
+true,true,true
 root_spr=7
 trunk_spr=12
 topcenter=40
 llbranch=11
 lrbranch=13
+tlbranch=8
+trbranch=10
+topcenter2=40
+topcenter3=40
+ulbranch=8
+urbranch=10
 
 end
 init()
@@ -75,7 +85,7 @@ drawmap()
     pal(15,1)
     end  
 		
---tree growth
+--tree growth-------
 if treeage>=0 then
   flag0=false
 end
@@ -172,12 +182,131 @@ end
 if treeage>=20 then
   if flag3==false then
 		  topcenter=9
-				spr(8,rootx-8,rooty-16)
-				spr(10,rootx+8,rooty-16)
-				spr(40,rootx,rooty-24)
+				spr(tlbranch,rootx-8,rooty-16)
+				spr(trbranch,rootx+8,rooty-16)
+				spr(topcenter2,rootx,rooty-24)
 		end 
 end
 
+--day 25
+if treeage>=25 then
+		if flag6==true then
+		  if topcenter2==40 then
+		    topcenter2=12
+		  end
+		  if selx==rootx and sely==rooty-24 then
+		    trimtext()
+		    if btn(5) then
+		      if topcenter2==12 then
+				      topcenter2=42
+				      flag6=false
+				    end
+				  end
+		  end
+		end
+		if flag7==true then
+		  if tlbranch==8 then
+		    tlbranch=11
+		  end
+		  if selx==rootx-8 and sely==rooty-16 then
+		    trimtext()
+		    if btn(5) then
+		      if tlbranch==11 then
+				      tlbranch=8
+				      flag7=false
+				    end
+				  end
+		  end
+		end
+		if flag8==true then
+		  if trbranch==10 then
+		    trbranch=13
+		  end
+		  if selx==rootx+8 and sely==rooty-16 then
+		    trimtext()
+		    if btn(5) then
+		      if trbranch==13 then
+				      trbranch=10
+				      flag8=false
+				    end
+				  end
+		  end
+		end
+		if flag9==true then
+		  if topcenter==9 then
+      topcenter=12
+    end
+		  if selx==rootx and sely==rooty-16 then
+		    trimtext()
+		    if btn(5) then
+		      if topcenter==12 then
+				      topcenter=9
+				      flag9=false
+				    end
+				  end
+		  end
+		end
+		if flag10==true then
+		  if llbranch==24 then
+      llbranch=11
+    end
+		  if selx==rootx-8 and sely==rooty-8 then
+		    trimtext()
+		    if btn(5) then
+		      if llbranch==11 then
+				      llbranch=24
+				      flag10=false
+				    end
+				  end
+		  end
+		end
+		if flag11==true then
+		  if lrbranch==26 then
+      lrbranch=13
+    end
+		  if selx==rootx+8 and sely==rooty-8 then
+		    trimtext()
+		    if btn(5) then
+		      if lrbranch==13 then
+				      lrbranch=26
+				      flag11=false
+				    end
+				  end
+		  end
+		end
+		if flag12==true then
+		  if trunk_spr==9 then
+      trunk_spr=12
+    end
+		  if selx==rootx and sely==rooty-8 then
+		    trimtext()
+		    if btn(5) then
+		      if trunk_spr==12 then
+				      trunk_spr=25
+				      flag12=false
+				    end
+				  end
+		  end
+		end
+end
+
+--day 30
+if treeage>=30 then
+		if topcenter2==42 then
+		  topcenter2=9
+		end
+		if tlbranch==8 then
+		  tlbranch=24
+		end
+		if trbranch==10 then
+		  trbranch=26
+		end
+		spr(topcenter3,rootx,rooty-32)
+		spr(ulbranch,rootx-8,rooty-24)
+		spr(urbranch,rootx+8,rooty-24)
+end
+
+----------------
 --cursor
 spr(17,selx,sely)
 if selx<0 then selx=0
@@ -224,6 +353,8 @@ function _update()
 		if hour==25 and flag0==false then 
 		  treeage=treeage+1
 		  end
+		  
+		if treeage>99 then treeage=99 end  
 		  
 		if flag0==true then
 		  init()
