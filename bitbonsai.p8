@@ -12,7 +12,7 @@ nsec=0
 --music(10)
 
 function init()
-treeage=0 --in days
+treeage=29 --in days
 rootx=24
 rooty=48
 flag0,flag1,flag2,flag3,flag4=
@@ -302,18 +302,20 @@ end
 
 --day 30
 if treeage>=30 then
-		if topcenter2==42 then
-		  topcenter2=9
-		end
-		if tlbranch==8 then
-		  tlbranch=24
-		end
-		if trbranch==10 then
-		  trbranch=26
-		end
-		spr(topcenter3,rootx,rooty-32)
-		spr(ulbranch,rootx-8,rooty-24)
-		spr(urbranch,rootx+8,rooty-24)
+  if flag6==false then
+				if topcenter2==42 then
+				  topcenter2=9
+				end
+				if tlbranch==8 then
+				  tlbranch=24
+				end
+				if trbranch==10 then
+				  trbranch=26
+				end
+				spr(topcenter3,rootx,rooty-32)
+				spr(ulbranch,rootx-8,rooty-24)
+				spr(urbranch,rootx+8,rooty-24)
+  end
 end
 
 ----------------
