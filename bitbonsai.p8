@@ -3,7 +3,7 @@ version 29
 __lua__
 --init
 poke(0x5f2c,3)
-version="0.2.3"
+version="0.2.5"
 hour=0
 day=0
 year=0
