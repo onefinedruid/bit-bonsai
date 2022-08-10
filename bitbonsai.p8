@@ -3,15 +3,15 @@ version 29
 __lua__
 --init
 poke(0x5f2c,3)
-version="0.2.6"
+version="0.2.7"
 hour=0
 day=0
 year=0
 sec=stat(95)
 nsec=0
---music(10)
 
 function init()
+mflag=true
 sflag=true
 treeage=0 --in days
 rootx=24
@@ -20,8 +20,8 @@ flag0,flag1,flag2,flag3,flag4=
 false,true,true,true,true
 flag5,flag6,flag7,flag8,flag9=
 true,true,true,true,true
-flag10,flag11,flag12=
-true,true,true
+flag10,flag11,flag12,flag13=
+true,true,true,true
 root_spr=7
 trunk_spr=12
 topcenter=40
@@ -75,11 +75,11 @@ end
 
 --daylight
 if sflag==false then
-  if hour>=0 and hour<4 then
+  if hour>=0 and hour<5 then
     pal(15,1)
     spr(51,44,15)
     end
-  if hour>=4 and hour<6 then
+  if hour>=5 and hour<6 then
     pal(15,13)
     spr(51,44,35)
     end
@@ -118,6 +118,7 @@ if treeage>=2 then
 		  if selx==rootx and sely==rooty then
 		    trimtext()
 		    if btnp(5) then
+		      sfx(3)
 		      if root_spr==7 then 
 		        root_spr=23
 		      elseif root_spr==23 then 
@@ -156,6 +157,7 @@ if treeage>=15 then
 		  if selx==rootx and sely==(rooty-8) then
 		    trimtext()
 		    if btnp(5) then
+		      sfx(3)
 		      if trunk_spr==12 then 
 		        trunk_spr=9
 		        flag2=false
@@ -167,6 +169,7 @@ if treeage>=15 then
 		  if selx==rootx and sely==(rooty-16) then
 		    trimtext()
 		    if btn(5) then
+		      sfx(3)
 		      if topcenter==12 then
 		        topcenter=42
 		        flag3=false
@@ -178,6 +181,7 @@ if treeage>=15 then
 		  if selx==rootx-8 and sely==(rooty-8) then
 		    trimtext()
 		    if btn(5) then
+		      sfx(3)
 		      if llbranch==11 then
 		        llbranch=24
 		        flag4=false
@@ -189,6 +193,7 @@ if treeage>=15 then
 		  if selx==rootx+8 and sely==(rooty-8) then
 		    trimtext()
 		    if btn(5) then
+		      sfx(3)
 		      if lrbranch==13 then
 		        lrbranch=26
 		        flag5=false
@@ -217,6 +222,7 @@ if treeage>=25 then
 		  if selx==rootx and sely==rooty-24 then
 		    trimtext()
 		    if btn(5) then
+		      sfx(3)
 		      if topcenter2==12 then
 				      topcenter2=42
 				      flag6=false
@@ -231,6 +237,7 @@ if treeage>=25 then
 		  if selx==rootx-8 and sely==rooty-16 then
 		    trimtext()
 		    if btn(5) then
+		      sfx(3)
 		      if tlbranch==11 then
 				      tlbranch=8
 				      flag7=false
@@ -245,6 +252,7 @@ if treeage>=25 then
 		  if selx==rootx+8 and sely==rooty-16 then
 		    trimtext()
 		    if btn(5) then
+		      sfx(3)
 		      if trbranch==13 then
 				      trbranch=10
 				      flag8=false
@@ -259,6 +267,7 @@ if treeage>=25 then
 		  if selx==rootx and sely==rooty-16 then
 		    trimtext()
 		    if btn(5) then
+		      sfx(3)
 		      if topcenter==12 then
 				      topcenter=9
 				      flag9=false
@@ -273,6 +282,7 @@ if treeage>=25 then
 		  if selx==rootx-8 and sely==rooty-8 then
 		    trimtext()
 		    if btn(5) then
+		      sfx(3)
 		      if llbranch==11 then
 				      llbranch=24
 				      flag10=false
@@ -287,6 +297,7 @@ if treeage>=25 then
 		  if selx==rootx+8 and sely==rooty-8 then
 		    trimtext()
 		    if btn(5) then
+		      sfx(3)
 		      if lrbranch==13 then
 				      lrbranch=26
 				      flag11=false
@@ -301,6 +312,7 @@ if treeage>=25 then
 		  if selx==rootx and sely==rooty-8 then
 		    trimtext()
 		    if btn(5) then
+		      sfx(3)
 		      if trunk_spr==12 then
 				      trunk_spr=25
 				      flag12=false
@@ -328,6 +340,24 @@ if treeage>=30 then
   end
 end
 
+--day 35
+if treeage>=35 then
+		if flag13==true then
+		  if topcenter3==40 then
+		    topcenter3=12
+		  end
+		  if selx==rootx and sely==rooty-32 then
+		    trimtext()
+		    if btn(5) then
+		      sfx(3)
+		      if topcenter3==12 then
+				      topcenter3=40
+				      flag13=false
+				    end
+				  end
+		  end
+		end
+end
 ----------------
 --cursor
 if sflag==false then
@@ -341,7 +371,7 @@ if sflag==false then
 		if selx==0 and sely<1 then
 		  sely=0
 		  end
-		if selx>=64 and sely>56 then
+		if selx>=56 and sely>56 then
 		 sely=56
 		 end
 end
@@ -349,6 +379,21 @@ end
 --debug
 --print(sec, 0, 0, 0)
 --print(nsec, 0, 8, 0)
+
+if day==0 and hour==2 then
+  music(0)
+end
+
+if btnp(4) then
+  if mflag==true then
+    music(-1)
+    mflag=false
+  elseif mflag==false then
+    music(0)
+    mflag=true
+  end
+end
+
 
 --eof
 end
@@ -360,7 +405,7 @@ function _update()
 -- clock		
 		nsec=stat(95)
 		if nsec==0 then sec=0 end
-		if hour==25 then hour=0 end
+		if hour==25 then hour=1 end
 		if sec<nsec then
 		  sec=sec+1
 		  hour=hour+1
@@ -395,6 +440,8 @@ end
 
 -->8
 --0ther functions
+
+--music
 
 __gfx__
 00000000ffffffff44444444fffffffffffffffffffffffffff44fff34344ffffffffffffff44ffffffffffff333333ff333333ff333333f0000000000000000
@@ -634,9 +681,12 @@ __map__
 0000000000000000000000000000000000002020202020202020202020202020201010101010101010101010101010101010303030303030303030303030303030303021212121212121212121212121212121210000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 0000000000000000000000000000000000002020202020202020202020202020201010101010101010101010101010101010303030303030303030303030303030303021212121212121212121212121212121210000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 __sfx__
-000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-001000160d5500d5500e5500e5500f55010550125501a5501a5501a5501b5501b5501b5501b5501a5501955018550175501655015550145501455000000000000000000000000000000000000000000000000000
-001000152e5402854026540255402554024540245402454024540245402455000050305502f5502e5502d5502c5502c5502c5502b5502b5500000000000000000000000000000000000000000000000000000000
+003c0020005300053013530135301c5301c530135301353017530175301f5301f5301c5301c5301f5301f530005300053013530135301c5301c530135301353017530175301f5301f5301c5301c5301f5301f530
+013c00200c7700c77213750137520c7700c772137501375207770077720e7500e75207770077720e7500e7520c7700c77210750107520c7700c772107501075207770077720e7500e75207770077720e7500e752
+013c00201c7301c73218730187321c7301c73218730187321a7301a73217730177321a7301a73217730177321c7301c73218730187321c7301c73218730187321a7301a73217730177321a7301a7321773017732
+0105000000630000000000000000000000000000000000001a6000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+011e0020247551800523755217551f7551d7551c7551d7551f755180051f755217551f755180051154510545115450c005115451354511545105450e54510545115450c0051154513545115450c005105450e545
 __music__
-02 01024344
+02 02010443
+00 43424344
 
