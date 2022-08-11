@@ -3,7 +3,7 @@ version 29
 __lua__
 --init
 poke(0x5f2c,3)
-version="0.2.7"
+version="0.3.0"
 hour=0
 day=0
 year=0
@@ -16,17 +16,32 @@ sflag=true
 treeage=0 --in days
 rootx=24
 rooty=48
+--growth
 flag0,flag1,flag2,flag3,flag4=
 false,true,true,true,true
 flag5,flag6,flag7,flag8,flag9=
 true,true,true,true,true
 flag10,flag11,flag12,flag13=
 true,true,true,true
+flag14,flag15,flag16,flag17=
+true,true,true,true
+flag18,flag19,flag20,flag21=
+true,true,true,true
+--lop
+flag22,flag23,flag24=
+true,true,true
+flag25,flag26,flag27=
+true,true,true
+flag28,flag29,flag30=
+true,true,true
+flag31,flag32,flag33=
+true,true,true
+--
 root_spr=7
 trunk_spr=12
 topcenter=40
-llbranch=11
-lrbranch=13
+llbranch=8
+lrbranch=10
 tlbranch=8
 trbranch=10
 topcenter2=40
@@ -103,7 +118,177 @@ if sflag==false then
     pal(15,1)
     spr(51,44,15)
     end
-end 
+end
+
+--branch lop-----
+
+--age 10
+if treeage>=10 then
+  if flag28==true then
+				if topcenter==40 or topcenter==42 then
+				  if selx==rootx and sely==rooty-16 then
+				    trimtext()
+				    if btnp(5) then
+				      sfx(3)
+						    topcenter=1
+						    flag28=false
+						  end
+				  end
+				end
+		end
+		if flag29==true then
+				if llbranch==8 or llbranch==24 then
+				  if selx==rootx-8 and sely==rooty-8 then
+				    trimtext()
+				    if btnp(5) then
+				      sfx(3)
+				      llbranch=1
+				      flag29=false
+						  end
+				  end
+				end
+		end
+		if flag30==true then
+				if lrbranch==10 or lrbranch==26 then
+				  if selx==rootx+8 and sely==rooty-8 then
+				    trimtext()
+				    if btnp(5) then
+				      sfx(3)
+				      lrbranch=1
+				      flag30=false
+						  end
+				  end
+				end
+		end
+end
+
+--age 20
+if treeage>=20 then
+  if flag25==true then
+				if topcenter2==40 or topcenter2==42 then
+				  if selx==rootx and sely==rooty-24 then
+				    trimtext()
+				    if btnp(5) then
+				      sfx(3)
+						    topcenter2=1
+						    flag25=false
+						  end
+				  end
+				end
+		end
+		if flag26==true then
+				if tlbranch==8 or tlbranch==24 then
+				  if selx==rootx-8 and sely==rooty-16 then
+				    trimtext()
+				    if btnp(5) then
+				      sfx(3)
+				      tlbranch=1
+				      flag26=false
+						  end
+				  end
+				end
+		end
+		if flag27==true then
+				if trbranch==10 or trbranch==26 then
+				  if selx==rootx+8 and sely==rooty-16 then
+				    trimtext()
+				    if btnp(5) then
+				      sfx(3)
+				      trbranch=1
+				      flag27=false
+						  end
+				  end
+				end
+		end
+end
+
+--age 25
+if treeage>=25 then
+		if flag31==true then
+				if trunk_spr==25 then
+				  if selx==rootx and sely==rooty-8 then
+				    trimtext()
+				    if btnp(5) then
+				      sfx(3)
+						    trunk_spr=9
+						    flag31=false
+						  end
+				  end
+				end
+		end
+end
+
+--age 30
+if treeage>=30 then
+  if flag22==true then
+				if topcenter3==40 or topcenter3==42 then
+				  if selx==rootx and sely==rooty-32 then
+				    trimtext()
+				    if btnp(5) then
+				      sfx(3)
+						    topcenter3=1
+						    flag22=false
+						  end
+				  end
+				end
+		end
+		if flag23==true then
+				if ulbranch==8 or ulbranch==24 then
+				  if selx==rootx-8 and sely==rooty-24 then
+				    trimtext()
+				    if btnp(5) then
+				      sfx(3)
+				      ulbranch=1
+				      flag23=false
+						  end
+				  end
+				end
+		end
+		if flag24==true then
+				if urbranch==10 or urbranch==26 then
+				  if selx==rootx+8 and sely==rooty-24 then
+				    trimtext()
+				    if btnp(5) then
+				      sfx(3)
+				      urbranch=1
+				      flag24=false
+						  end
+				  end
+				end
+		end
+end
+
+--age 35
+if treeage>=35 then
+		if flag32==true then
+				if topcenter==25 then
+				  if selx==rootx and sely==rooty-16 then
+				    trimtext()
+				    if btnp(5) then
+				      sfx(3)
+						    topcenter=9
+						    flag32=false
+						  end
+				  end
+				end
+		end
+end
+
+--age 40
+if treeage>=40 then
+		if flag33==true then
+				if topcenter2==25 then
+				  if selx==rootx and sely==rooty-24 then
+				    trimtext()
+				    if btnp(5) then
+				      sfx(3)
+						    topcenter2=9
+						    flag33=false
+						  end
+				  end
+				end
+		end
+end
 		
 --tree growth-------
 if treeage>=0 then
@@ -140,17 +325,21 @@ end
 --day 10
 if treeage>=10 then
   spr(9,rootx,rooty-8)
-  spr(8,rootx-8,rooty-8)
-  spr(10,rootx+8,rooty-8)
+  if flag29==true then
+    spr(llbranch,rootx-8,rooty-8)
+  end
+  if flag30==true then
+    spr(lrbranch,rootx+8,rooty-8)
+  end
   spr(topcenter,rootx,rooty-16)
 end
   
 --day 15 
 if treeage>=15 then
   spr(topcenter,rootx,rooty-16)
-  spr(llbranch,rootx-8,rooty-8)
+  if llbranch==8 then llbranch=11 end
+  if lrbranch==10 then lrbranch=13 end
   spr(trunk_spr,rootx,rooty-8)
-  spr(lrbranch,rootx+8,rooty-8)
   if topcenter==40 then topcenter=12 end
   --trim
   if flag2==true then
@@ -342,22 +531,168 @@ end
 
 --day 35
 if treeage>=35 then
-		if flag13==true then
-		  if topcenter3==40 then
-		    topcenter3=12
-		  end
-		  if selx==rootx and sely==rooty-32 then
-		    trimtext()
-		    if btn(5) then
-		      sfx(3)
-		      if topcenter3==12 then
-				      topcenter3=40
-				      flag13=false
-				    end
+  if flag6==false then
+				if flag13==true then
+				  if topcenter3==40 then
+				    topcenter3=12
 				  end
-		  end
+				  if selx==rootx and sely==rooty-32 then
+				    trimtext()
+				    if btn(5) then
+				      sfx(3)
+				      if topcenter3==12 then
+						      topcenter3=40
+						      flag13=false
+						    end
+						  end
+				  end
+				end
+				if flag14==true then
+				  if ulbranch==8 then
+				    ulbranch=11
+				  end
+				  if selx==rootx-8 and sely==rooty-24 then
+				    trimtext()
+				    if btn(5) then
+				      sfx(3)
+				      if ulbranch==11 then
+						      ulbranch=8
+						      flag14=false
+						    end
+						  end
+				  end
+				end
+				if flag15==true then
+				  if urbranch==10 then
+				    urbranch=13
+				  end
+				  if selx==rootx+8 and sely==rooty-24 then
+				    trimtext()
+				    if btn(5) then
+				      sfx(3)
+				      if urbranch==13 then
+						      urbranch=10
+						      flag15=false
+						    end
+						  end
+				  end
+				end
+				if flag16==true and flag32==true then
+				  if topcenter2==9 then
+				    topcenter2=12
+				  end
+				  if selx==rootx and sely==rooty-24 then
+				    trimtext()
+				    if btn(5) then
+				      sfx(3)
+				      if topcenter2==12 then
+						      topcenter2=9
+						      flag16=false
+						    end
+						  end
+				  end
+				end
+				if flag17==true then
+				  if tlbranch==24 then
+				    tlbranch=11
+				  end
+				  if selx==rootx-8 and sely==rooty-16 then
+				    trimtext()
+				    if btn(5) then
+				      sfx(3)
+				      if tlbranch==11 then
+						      tlbranch=24
+						      flag17=false
+						    end
+						  end
+				  end
+				end
+				if flag18==true then
+				  if trbranch==26 then
+				    trbranch=13
+				  end
+				  if selx==rootx+8 and sely==rooty-16 then
+				    trimtext()
+				    if btn(5) then
+				      sfx(3)
+				      if trbranch==13 then
+						      trbranch=26
+						      flag18=false
+						    end
+						  end
+				  end
+				end
+				if flag32==true then
+						if topcenter==9 then
+						  topcenter=25
+						end
+				end
+				if flag19==true then
+				  if llbranch==24 then
+				    llbranch=11
+				  end
+				  if selx==rootx-8 and sely==rooty-8 then
+				    trimtext()
+				    if btn(5) then
+				      sfx(3)
+				      if llbranch==11 then
+						      llbranch=24
+						      flag19=false
+						    end
+						  end
+				  end
+				end
+				if flag20==true then
+				  if lrbranch==26 then
+				    lrbranch=13
+				  end
+				  if selx==rootx+8 and sely==rooty-8 then
+				    trimtext()
+				    if btn(5) then
+				      sfx(3)
+				      if lrbranch==13 then
+						      lrbranch=26
+						      flag20=false
+						    end
+						  end
+				  end
+				end
 		end
 end
+
+--day 40
+if treeage>=40 then
+  if flag13==false and flag33==true then
+		  if topcenter2==9 then
+		    topcenter2=25
+		  end
+		end
+	 if flag14==false then
+		  if ulbranch==8 then
+		    ulbranch=24
+		  end
+		end
+		if flag15==false then
+		  if urbranch==10 then
+		    urbranch=26
+		  end
+		end	
+end
+
+--day 45
+if treeage>=45 then
+		if topcenter3==40 then topcenter3=12 end
+		if topcenter2==25 then topcenter2=12 end
+		if topcenter==25 then topcenter=12 end
+		if ulbranch==24 then ulbranch=11 end
+		if urbranch==26 then urbranch=13 end
+		if tlbranch==24 then tlbranch=11 end
+		if trbranch==26 then trbranch=13 end
+		if llbranch==24 then llbranch=11 end
+		if lrbranch==26 then lrbranch=13 end
+		if trunk_spr==25 then trunk_spr=12 end
+end
+
 ----------------
 --cursor
 if sflag==false then
@@ -441,8 +776,6 @@ end
 -->8
 --0ther functions
 
---music
-
 __gfx__
 00000000ffffffff44444444fffffffffffffffffffffffffff44fff34344ffffffffffffff44ffffffffffff333333ff333333ff333333f0000000000000000
 00000000ffffffff44444444fffffffffffffffffffffffffff44ffff3444343fffff33ffff44fffffffffff3333333333333333333333330000000000000000
@@ -452,14 +785,14 @@ __gfx__
 00000000ffffffff444444442222222222222222222222222222222222222222fffffffffff44fff34333fff3333333333333333344333330000000000000000
 00000000ffffffff44444444f2222222222222222222222f2222222222222222fffffffffff44444333333ff3333333333333333333333330000000000000000
 00000000ffffffff44444444fff222ffffffffffff222ffffffffffffffffffffffffffffff444fff3333ffff333333ff334433ff333333f0000000000000000
-cccccccc7777777777777775777777750000000000000000fff44ffff4f44ffffffffffffff44ffffffffffff333333ff334433ff333333f0000000000000000
-cccccccc766666677555555d7555555d0000000000000000fff44fffff444f4ffff333fffff44fffffffffff3333333333333333333333330000000000000000
-cccccccc76666667755c555d7558585d0000000000000000fff44ffffff444ffff33333ffff44fffffffffff3333333333333333333333330000000000000000
-cccccccc76666667755cc55d7555755d0000000000000000fff44ffffff44ffff333344344444fffff333fff3333333333333333333333330000000000000000
-cccccccc7666666775cccc5d7557575d0000000000000000fff44fff22222222f3333343ff444ffff33333ff3333444333333333344433330000000000000000
-cccccccc76666667755cc55d7557575d0000000000000000fff44fff22222222ff33333fff3333443443333f3333334444333344443333330000000000000000
-cccccccc766666677555555d7555555d0000000000000000fff44fff22222222ffff33fff333333f3433333f3333333333444433333333330000000000000000
-cccccccc777777775ddddddd5ddddddd0000000000000000fff44fffffffffffffffffffff3333fff33333fff333333ff334433ff333333f0000000000000000
+cccccccc777777777777777577777775ffffffff00000000fff44ffff4f44ffffffffffffff44ffffffffffff333333ff334433ff333333f0000000000000000
+cccccccc766666677555555d7555555dffffffff00000000fff44fffff444f4ffff333fffff44fffffffffff3333333333333333333333330000000000000000
+cccccccc76666667755c555d7558585dffffffff00000000fff44ffffff444ffff33333ffff44fffffffffff3333333333333333333333330000000000000000
+cccccccc76666667755cc55d7555755dffffffff00000000fff44ffffff44ffff333344344444fffff333fff3333333333333333333333330000000000000000
+cccccccc7666666775cccc5d7557575dffffffff00000000fff44fff22222222f3333343ff444ffff33333ff3333444333333333344433330000000000000000
+cccccccc76666667755cc55d7557575dffffffff00000000fff44fff22222222ff33333fff3333443443333f3333334444333344443333330000000000000000
+cccccccc766666677555555d7555555dffffffff00000000fff44fff22222222ffff33fff333333f3433333f3333333333444433333333330000000000000000
+cccccccc777777775ddddddd5dddddddffffffff00000000fff44fffffffffffffffffffff3333fff33333fff333333ff334433ff333333f0000000000000000
 eeeeeeee7777777777777775ffffffff00000000000000000000000000000000fffffffffff44fff343ff343fffffffff44ff44fffffffff0000000000000000
 eeeeeeee777777777555555dffaaaaff00000000000000000000000000000000fffffffffff44ffff344443fffffffffff4444ffffffffff0000000000000000
 eeeeeeee777777777535355dfaaaaaaf00000000000000000000000000000000ffffffff33344ffffff44ffffffffffffff44fffffffffff0000000000000000
@@ -682,10 +1015,10 @@ __map__
 0000000000000000000000000000000000002020202020202020202020202020201010101010101010101010101010101010303030303030303030303030303030303021212121212121212121212121212121210000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 __sfx__
 003c0020005300053013530135301c5301c530135301353017530175301f5301f5301c5301c5301f5301f530005300053013530135301c5301c530135301353017530175301f5301f5301c5301c5301f5301f530
-013c00200c7700c77213750137520c7700c772137501375207770077720e7500e75207770077720e7500e7520c7700c77210750107520c7700c772107501075207770077720e7500e75207770077720e7500e752
-013c00201c7301c73218730187321c7301c73218730187321a7301a73217730177321a7301a73217730177321c7301c73218730187321c7301c73218730187321a7301a73217730177321a7301a7321773017732
-0105000000630000000000000000000000000000000000001a6000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-011e0020247551800523755217551f7551d7551c7551d7551f755180051f755217551f755180051154510545115450c005115451354511545105450e54510545115450c0051154513545115450c005105450e545
+003c00200c7600c76213740137420c7600c762137401374207760077620e7400e74207760077620e7400e7420c7600c76210740107420c7600c762107401074207760077620e7400e74207760077620e7400e742
+003c00201c7301c73218730187321c7301c73218730187321a7301a73217730177321a7301a73217730177321c7301c73218730187321c7301c73218730187321a7301a73217730177321a7301a7321773017732
+0005000000640000000000000000000000000000000000001a6000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+001e0020247451800523745217451f7451d7451c7451d7451f745180051f745217451f745180051153510535115350c005115351353511535105350e53510535115350c0051153513535115350c005105350e535
 __music__
 02 02010443
 00 43424344
