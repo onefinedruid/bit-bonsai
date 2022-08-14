@@ -1,0 +1,4 @@
+8/12/22
+-- cant trim TOPCENTER2 after age 35
+-- trimtext on URBRANCH & LRBRANCH after age 40 when no limbs present
+-- if age 30 and TOPCENTER2 has been lopped, foliage still grows
