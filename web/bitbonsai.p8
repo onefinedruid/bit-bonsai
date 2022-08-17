@@ -3,8 +3,7 @@ version 29
 __lua__
 --init
 poke(0x5f2c,3)
-poke(0x5f2d, 1)
-version="0.3.2"
+version="0.3.15"
 hour=0
 day=0
 year=0
@@ -793,16 +792,12 @@ if sflag==false then
 		if selx>=56 and sely>56 then
 		 sely=56
 		 end
-		--mouse
-		--selx=stat(32)
-		--sely=stat(33)
 end
 
 --debug
 --print(sec, 0, 0, 0)
 --print(nsec, 0, 8, 0)
 
---music
 if day==0 and hour==2 then
   music(0)
 end
